@@ -1,0 +1,374 @@
+---
+title: "DityaRaid_Project1"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r message=FALSE, warning=FALSE}
+#### Panggil semua package yang diperlukan.
+library(readxl) #membaca file Excel
+library(nortest) #uji normalitas
+library(ggplot2) #grafik dgn package ggplot2
+library(dplyr)
+library(moments)
+
+### Impor Data
+library(readxl)
+Form <- read_excel("Form.xlsx")
+View(Form)
+```
+## Hitunglah skewness dan kurtosis untuk semua variabel numerik pada data Form Pastikan anda sudah memasang package **moments**.
+```{r message=FALSE, warning=FALSE}
+### SKEWNESS KURIR EXPRESS
+skewness(Form$PenggunaanKurirExpress)
+skewness(Form$JarakKurirExpress)
+skewness(Form$HargaKurirExpress)
+skewness(Form$BeratKurirExpress)
+skewness(Form$RatingKurirExpress)
+### KURTOSIS KURIR EXPRESS
+kurtosis(Form$PenggunaanKurirExpress)
+kurtosis(Form$JarakKurirExpress)
+kurtosis(Form$HargaKurirExpress)
+kurtosis(Form$BeratKurirExpress)
+kurtosis(Form$RatingKurirExpress)
+
+### SKEWNESS KURIR REGULER
+skewness(Form$PenggunaanKurirReguler)
+skewness(Form$HargaKurirReguler)
+skewness(Form$JarakKurirReguler)
+skewness(Form$BeratKurirReguler)
+skewness(Form$RatingKurirReguler)
+### KURTOSIS KURIR REGULER
+kurtosis(Form$PenggunaanKurirReguler)
+kurtosis(Form$HargaKurirReguler)
+kurtosis(Form$JarakKurirReguler)
+kurtosis(Form$BeratKurirReguler)
+kurtosis(Form$RatingKurirReguler)
+
+# KESIMPULAN
+# Dari hasil Skewness dan kurtosis di atas, data yang menunjukan berdistribusi normal
+# maupun hampir normal yaitu, JarakKurirExpress = 1.041335, RatingKurirExpress = 0.1030717, RatingKurirReguler = -0.7659352, sisa data yang lain tidak menunjukan data yang berdistribusi normal
+```
+### Menghitung Distribusi peluang Binomial, Distribusi peluang Gaussian (Normal), Uji normalitas 
+1. Gambarkan histogram, density plot dan Q-Q plot untuk variabel Numerik pada Kurir Express. Apakah distribusinya terlihat Gaussian? Berikan label sumbu X, label sumbu Y dan judul yang sesuai. Tuliskan nama anda pada judul/ subjudul grafik. 
+```{r message=FALSE, warning=FALSE}
+### PenggunaanKurirExpress
+hist(Form$PenggunaanKurirExpress, xlim = c(0, 25), main = "Ditya Raid 00000058025")
+plot(density(Form$PenggunaanKurirExpress), main = "Ditya Raid 00000058025")
+qqnorm(Form$PenggunaanKurirExpress, main = "Ditya Raid 00000058025")
+#Berdasarkan histogram, density plot dan Q-Q plot tidak mengikuti distribusi gaussian 
+```
+
+```{r message=FALSE, warning=FALSE}
+###JarakKurirExpress
+hist(Form$JarakKurirExpress, xlim = c(0, 50), main = "Ditya Raid 00000058025")
+plot(density(Form$JarakKurirExpress), main = "Ditya Raid 00000058025")
+qqnorm(Form$JarakKurirExpress, main = "Ditya Raid 00000058025")
+#Berdasarkan histogram, density plot dan Q-Q plot mengikuti distribusi borederline gaussian
+```
+```{r message=FALSE, warning=FALSE}
+###HargaKurirExpress
+hist(Form$HargaKurirExpress, xlim = c(0, 200000), main = "Ditya Raid 00000058025")
+plot(density(Form$HargaKurirExpress), main = "Ditya Raid 00000058025")
+qqnorm(Form$HargaKurirExpress, main = "Ditya Raid 00000058025")
+#Berdasarkan histogram, density plot dan Q-Q plot tidak mengikuti distribusi borderline gaussian
+```
+```{r message=FALSE, warning=FALSE}
+###BeratKurirExpress
+hist(Form$BeratKurirExpress, xlim = c(0, 50), main = "Ditya Raid 00000058025")
+plot(density(Form$BeratKurirExpress), main = "Ditya Raid 00000058025")
+qqnorm(Form$BeratKurirExpress, main = "Ditya Raid 00000058025")
+#Berdasarkan histogram, density plot dan Q-Q plot tidak mengikuti distribusi gaussian
+```
+```{r message=FALSE, warning=FALSE}
+###RatingKurirExpress
+hist(Form$RatingKurirExpress, xlim = c(0, 5), main = "Ditya Raid 00000058025")
+plot(density(Form$RatingKurirExpress), main = "Ditya Raid 00000058025")
+qqnorm(Form$RatingKurirExpress, main = "Ditya Raid 00000058025")
+#Berdasarkan histogram, density plot dan Q-Q plot  mengikuti distribusi gaussian
+```
+2. Gambarkan histogram, density plot dan Q-Q plot untuk variabel Numerik pada Kurir Reguler Apakah distribusinya terlihat Gaussian? Berikan label sumbu X, label sumbu Y dan judul yang sesuai. Tuliskan nama anda pada judul/ subjudul grafik.
+
+```{r message=FALSE, warning=FALSE}
+### PenggunaanKurirReguler
+hist(Form$PenggunaanKurirReguler, xlim = c(0, 30), main = "Ditya Raid 00000058025")
+plot(density(Form$PenggunaanKurirReguler), main = "Ditya Raid 00000058025")
+qqnorm(Form$PenggunaanKurirReguler, main = "Ditya Raid 00000058025")
+#Berdasarkan histogram, density plot dan Q-Q plot tidak mengikuti distribusi gaussian
+```
+```{r message=FALSE, warning=FALSE}
+### HargaKurirReguler
+hist(Form$HargaKurirReguler, xlim = c(0, 70000), main = "Ditya Raid 00000058025")
+plot(density(Form$HargaKurirReguler), main = "Ditya Raid 00000058025")
+qqnorm(Form$HargaKurirReguler, main = "Ditya Raid 00000058025")
+#Berdasarkan histogram, density plot dan Q-Q plot tidak mengikuti distribusi gaussian
+```
+```{r message=FALSE, warning=FALSE}
+### JarakKurirReguler
+hist(Form$JarakKurirReguler, xlim = c(0, 4000), main = "Ditya Raid 00000058025")
+plot(density(Form$JarakKurirReguler), main = "Ditya Raid 00000058025")
+qqnorm(Form$JarakKurirReguler, main = "Ditya Raid 00000058025")
+#Berdasarkan histogram, density plot dan Q-Q plot tidak mengikuti distribusi gaussian
+```
+```{r message=FALSE, warning=FALSE}
+### BeratKurirReguler
+hist(Form$BeratKurirReguler, xlim = c(0, 25), main = "Ditya Raid 00000058025")
+plot(density(Form$BeratKurirReguler), main = "Ditya Raid 00000058025")
+qqnorm(Form$BeratKurirReguler, main = "Ditya Raid 00000058025")
+#Berdasarkan histogram, density plot dan Q-Q plot tidak mengikuti distribusi gaussian
+```
+```{r message=FALSE, warning=FALSE}
+### RatingKurirReguler
+hist(Form$RatingKurirReguler, xlim = c(0, 5), main = "Ditya Raid 00000058025")
+plot(density(Form$RatingKurirReguler), main = "Ditya Raid 00000058025")
+qqnorm(Form$RatingKurirReguler, main = "Ditya Raid 00000058025")
+#Berdasarkan histogram, density plot dan Q-Q plot tidak mengikuti distribusi borderline gaussian
+```
+
+
+4. Lakukan uji Anova
+a. Lakukan analisa awal dengan menggunakan statistika deskriptif.
+```{r message=FALSE, warning=FALSE}
+# IMPORT DATA YANG DIINGINKAN
+library(readxl)
+Biaya <- read_excel("Form.xlsx", sheet = "Cost")
+View(Biaya)
+
+```
+```{r message=FALSE, warning=FALSE}
+
+apply (Biaya, 2, mean, na.rm = TRUE)
+
+stackbiaya<- stack (Biaya)
+
+```
+b. Lakukan pengecekan asumsi ANOVA. Apa yang dapat anda simpulkan?
+
+```{r message=FALSE, warning=FALSE}
+
+apply (Biaya, 2, shapiro.test)
+#tidak ada data yang bersifat gaussian.  semua nya memiliki p-value diatas 0.05. 
+
+apply (Biaya, 2, var, na.rm = TRUE)
+#kesimpulan : varians datanya  sama
+
+car :: leveneTest(values~ind, data = stackbiaya)
+#hasil uji hipotesa terdapat kesamaan varians levene menyimpulkan bahwa tidak ada perbedaan signifikan pada varians karena tidak adanya 3 bintang
+
+```
+c. Lakukan uji ANOVA pada tingkat signifikansi 5%. Tuliskan kesimpulan anda. 
+
+```{r message=FALSE, warning=FALSE}
+
+hasil <- aov(values ~ind, data = stackbiaya)
+summary(hasil)
+#p-value nya 2.17e-05 < 0.05 yang menunjukan penolakan hipotesa null pada alpha 5% sehingga terdapat minimal satu mean populasi yang berbeda
+
+```
+d. Bila diperlukan, lakukan uji Tukey HSD untuk mengecek mean mana yang berbeda. Mean manakah yang berbeda?
+
+```{r message=FALSE, warning=FALSE}
+
+hasilkramer<- TukeyHSD (hasil, conf.level = 0.95)
+hasilkramer
+```
+
+
+
+5. Uji Regresi Linear
+a. Panggil package yang diperlukan. 
+```{r message=FALSE, warning=FALSE}
+library(lmtest) # uji otokorelasi dan homokedastisitas
+library(nortest) # uji normalitas
+
+```
+## Analisa awal
+
+b. Lakukan analisa awal statistika deskriptif dan gambarkan scatter plot untuk data ini.
+Hitung koefisien korelasi Pearson antara kedua variabel ini. Apa yang bisa anda simpulkan dari nilai $r$?
+## Modeling
+```{r message=FALSE, warning=FALSE}
+#scatter plot
+plot(Form$ECommerceDalamSebulan, Form$PenggunaanKurirExpress, xlab = "Penggunaan E COmmerce dalam sebulan", ylab = "Penggunaan Kurir EXpress", xlim = c(0, 20), main ="Hubungan antara Pembelian ecommerce dengan  Kurir Express")
+abline(lm(Form$ECommerceDalamSebulan ~ Form$PenggunaanKurirExpress), col = "red")
+
+#Pola apakah yang anda lihat dalam scatter plot ini?
+#Jawaban: pola linier  kuat karena memiliki arah yang searah dan miring kanan atas
+
+#scatter plot
+plot(Form$ECommerceDalamSebulan, Form$PenggunaanKurirReguler, xlab = "Penggunaan E COmmerce dalam sebulan", ylab = "Penggunaan Kurir Reguler", xlim = c(0, 20), main ="Hubungan antara Pembelian ecommerce dengan  Kurir Reguler")
+abline(lm(Form$ECommerceDalamSebulan ~ Form$PenggunaanKurirReguler), col = "red")
+#Pola apakah yang anda lihat dalam scatter plot ini?
+#Jawaban: pola linier  kuat karena memiliki arah yang searah dan miring kanan atas
+
+
+#koefisien korelasi
+cor(Form$ECommerceDalamSebulan, Form$PenggunaanKurirExpress, method = "pearson")
+#nilai korelasi Pearson = 0,5438705 artinya memiliki hubungan yang sedang atau moderat  karena berada di interval 0,4 <= r <= 0,6
+
+#koefisien korelasi
+cor(Form$ECommerceDalamSebulan, Form$PenggunaanKurirReguler, method = "pearson")
+#nilai korelasi Pearson = 0,6046395 artinya memiliki hubungan yang kuat karena berada di interval 0,6 <= r <= 0,8
+```
+
+c. Modeling
+    i. Lakukan fit model regresi linier untuk data 
+    ii. Lakukan pengecekan asumsi regresi linier. Sebutkan pada masing-masing bagian apakah asumsi tersebut terpenuhi. 
+    iii. Apa yang dapat anda simpulkan? 
+    ## Interpretasi Output
+# MODEL UNTUK KURIR EXPRESS
+```{r message=FALSE, warning=FALSE}
+#fit model
+model <- lm(Form$ECommerceDalamSebulan ~ Form$PenggunaanKurirExpress)
+summary(model)
+
+#cek asumsi
+#uji otokorelasi
+lmtest::dwtest(model) 
+
+#uji homoskedastisitas
+lmtest::bptest(model) 
+
+
+#cek residual
+par(mfrow = c(2,2))
+plot(model) 
+#uji otokorelasi: p-value 0,2068 > alpha 0.05 Jadi asumsi terpenuhi
+#uji homoskedastisitas: p-value 1,806e-07 < alpha 0.05 Jadi asumsi tidak terpenuhi
+
+#kesimpulan dari plot 1: plot residual vs fitted : residual homoskedastis.
+#Kesimpulan dari plot 2: Q-Q plot : residual Gaussian.
+#Kesimpulan dari plot 3: plot scale-location : residual homoskedastis.
+#kesimpulan dari plot 4: plot residual vs leverage : tidak terdapat influential point.
+#kesimpulan dari uji Durbin-watson: H0 diterima yakni tidak ada otokorelasi pada residual.
+#kesimpulan dari uji Breush-Pagan: residual homoskedastis.
+#jadi dapat disimpulkan model hampir memenuhi asumsi
+
+
+```
+# MODEL UNTUK KURIR REGULER
+```{r message=FALSE, warning=FALSE}
+#fit model
+model1 <- lm(Form$ECommerceDalamSebulan ~ Form$PenggunaanKurirReguler)
+summary(model1)
+
+#cek asumsi
+#uji otokorelasi
+lmtest::dwtest(model1) 
+
+#uji homoskedastisitas
+lmtest::bptest(model1) 
+
+
+#cek residual
+par(mfrow = c(2,2))
+plot(model1) 
+#uji otokorelasi: p-value 0,9657 > alpha 0.05 Jadi asumsi terpenuhi
+#uji homoskedastisitas: p-value 6,315e-11 < alpha 0.05 Jadi asumsi tidak terpenuhi
+
+#kesimpulan dari plot 1: plot residual vs fitted : residual homoskedastis.
+#Kesimpulan dari plot 2: Q-Q plot : residual Gaussian.
+#Kesimpulan dari plot 3: plot scale-location : residual heteroskedastis.
+#kesimpulan dari plot 4: plot residual vs leverage : terdapat influential point.
+#kesimpulan dari uji Durbin-watson: H0 diterima yakni tidak ada otokorelasi pada residual.
+#kesimpulan dari uji Breush-Pagan: residual homoskedastis.
+#jadi dapat disimpulkan model hampir memenuhi asumsi
+
+```
+
+6. Korelasi Spearmann dan Pearson
+I. Panggil semua package yang diperlukan. Impor data yang diperlukan.
+
+```{r message=FALSE, warning=FALSE}
+#I--------------
+#load library
+library(readxl)
+library(MVN)
+library(tidyverse)
+#baca data
+library(readxl)
+Form <- read_excel("Form.xlsx")
+View(Form)
+```
+II. Lakukan analisa awal statistika deskriptif.
+   i. Buatlah summary data. 
+   ii. Gambarkan scatter plot antara variabel AnnualFoodSpending dan dua variabel independen numerik lainnya. Pola apakah yang anda lihat dalam scatter plot ini?
+   
+```{r message=FALSE, warning=FALSE}
+#II-------------
+
+#i
+summary(Form)
+
+#ii
+plot(Form$ECommerceDalamSebulan, Form$PenggunaanKurirExpress)
+abline(lm(Form$ECommerceDalamSebulan ~ Form$PenggunaanKurirExpress), col = "orange")
+
+plot(Form$ECommerceDalamSebulan, Form$PenggunaanKurirReguler)
+abline(lm(Form$ECommerceDalamSebulan ~ Form$PenggunaanKurirReguler), col = "orange")
+
+#Scatter plot EcommerceDalamSebulan dan PenggunaanKurirExpress menunjukan garis diagonal yang searah dan moderat
+#Scatter plot EcommerceDalamSebulan dan PenggunaanKurirReguler menunjukan pola relasi yang kuat dan searah
+
+```
+III. Cek asumsi normalitas
+   i. Lakukan pengecekan normalitas untuk variabel AnnualFoodSpending, AnnualHouseholdIncome dan NonmortgageHouseholdDebt. 
+   ii. Lakukan uji hipotesa koefisien korelasi yang sesuai dengan hasil pengecekan normalitas di atas dengan menggunakan fungsi **cor.test()**. Pilihlah opsi yang sesuai. Apakah hasil uji hipotesa tersebut signifikan? Apa yang bisa anda simpulkan tentang signikansi uji hipotesa dan besaran koefisien korelasi?
+
+```{r message=FALSE, warning=FALSE}
+#III------------
+
+#i
+shapiro.test(Form$ECommerceDalamSebulan)
+shapiro.test(Form$PenggunaanKurirExpress)
+shapiro.test(Form$PenggunaanKurirReguler)
+
+#Hasil uji normalitas: 
+#pada ECommerceDalamSebulan  p-value = 5.719e-14
+#pada PenggunaanKurirExpress p-value = 2.2e-16
+#pada PenggunaanKurirReguler p-value = 2.2e-16
+
+#ii
+d1 <- cor.test(Form$ECommerceDalamSebulan, Form$PenggunaanKurirExpress, method = "spearman", conf.level = 0.95)
+d1
+d2 <- cor.test(Form$ECommerceDalamSebulan, Form$PenggunaanKurirReguler, method = "spearman", conf.level = 0.95)
+d2
+
+#Hasil uji hipotesa korelasi:
+# Form$ECommerceDalamSebulan dan Form$PenggunaanKurirExpress = 0.4034244, maka dapat disimpulkan memiliki hubungan atau korelasi yang searah dengan kekuatan moderat atau sedang
+# Form$ECommerceDalamSebulan dan Form$PenggunaanKurirReguler = 0.5974006, maka dapat disimpulkan memiliki hubungan atau korelasi yang searah dengan kekuatan yang kuat
+
+```
+7. Uji Non Parametric
+
+I. Membuktikan Data Tidak Normal
+```{r}
+shapiro.test(Form$JarakKurirExpress)
+shapiro.test(Form$HargaKurirExpress)
+shapiro.test(Form$JarakKurirReguler)
+shapiro.test(Form$HargaKurirReguler)
+
+# p-value JarakKurirExpress 1.197e-07
+# p-value HargaKurirExpress 2.291e-15
+# p-value JarakKurirReguler 2.2e-16
+# p-value HargaKurirReguler 4.614e-13
+
+#Kesimpulan, semua data di atas adalah data yang tidak normal.
+```
+II.Gunakan **wilcox.test()** dengan opsi **paired** untuk melakukan Wilcoxon Matched-Pairs Signed Rank Test untuk menguji apakah Jarak Pengiriman berpengaruh terhadap Harga ongkos kirim. Tuliskan kesimpulan anda.
+```{r}
+#II----------
+
+#H0: Jarak Independent terhadap Harga Ongkir
+#H1: Jarak Tidak Independent terhadap Harga Ongkir
+
+wilcox.test(Form$JarakKurirExpress, Form$HargaKurirExpress, paired = TRUE, alternative = "greater", conf.level = 0.95)
+wilcox.test(Form$JarakKurirReguler, Form$HargaKurirReguler, paired = TRUE, alternative = "greater" , conf.level = 0.95)
+
+#Hasil uji hipotesa: hasil p-valuenya keduanya adalah 1
+#Kesimpulan: Menolak hipotesa alternatif dan Menerima hipotesa null, artinya Jarak pada Kurir Express maupun Reguler Independent terhadap Harga Ongkir
+```
